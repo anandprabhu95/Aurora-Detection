@@ -1,6 +1,8 @@
 from urllib.request import urlopen
 import cv2
 import numpy as np
+import winsound
+from playsound import playsound
 
 url = r'D:\Aurora_detection_notification\Aurora-Detection\Aurora_video\Warning.mp4'
 
@@ -65,6 +67,9 @@ while True:
     cv2.drawContours(output, contours, -1, 255, 3)
     c = max(contours, key = cv2.contourArea)
     x,y,w,h = cv2.boundingRect(c)
+    area_bb = w * h
+    if area_bb / (720 * 1280) > 0.5:
+        playsound(r'C:\Users\shrey\Downloads\Steve-Vai-Tender-Surrender.mp3')
 
     # draw the biggest contour (c) in green
 
