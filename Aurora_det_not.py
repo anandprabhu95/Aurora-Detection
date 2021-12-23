@@ -3,6 +3,9 @@ import cv2
 import numpy as np
 import winsound
 from playsound import playsound
+from pygame import mixer
+import time
+
 
 url = r'D:\Aurora_detection_notification\Aurora-Detection\Aurora_video\Warning.mp4'
 
@@ -68,8 +71,6 @@ while True:
     c = max(contours, key = cv2.contourArea)
     x,y,w,h = cv2.boundingRect(c)
     area_bb = w * h
-    if area_bb / (720 * 1280) > 0.5:
-        playsound(r'C:\Users\shrey\Downloads\Steve-Vai-Tender-Surrender.mp3')
 
     # draw the biggest contour (c) in green
 
@@ -77,6 +78,14 @@ while True:
 
 # show the images
     cv2.imshow("Result", output)
+
+    if area_bb / (720 * 1280) > 0.5:
+        mixer.init() #Initialzing pyamge mixer
+        mixer.music.load(r'C:\Users\shrey\Downloads\Steve-Vai-Tender-Surrender.mp3') #Loading Music File
+        mixer.music.play() #Playing Music with Pygame
+        time.sleep(3)
+        mixer.music.stop()
+        # playsound(r'C:\Users\shrey\Downloads\Steve-Vai-Tender-Surrender.mp3')
 
     # for pic, contour in enumerate(contours):
     #     print(type(contour))
